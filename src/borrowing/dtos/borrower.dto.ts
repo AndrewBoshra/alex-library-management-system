@@ -9,14 +9,14 @@ export class BorrowerDto {
 
   @IsString()
   @IsNotEmpty()
-  name: string;
+  name?: string;
 
   @IsString()
   @IsEmail()
-  email: string;
+  email?: string;
 
   @ApiProperty({
     readOnly: true,
   })
-  registeredAt: Date;
+  registeredAt?: Date;
 }

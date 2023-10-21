@@ -29,7 +29,9 @@ export class IsbnValidator implements ValidatorConstraintInterface {
     return parseInt(isbn[12]) === checksum;
   }
 
-  validate(isbn: string) {
+  validate(isbn?: string) {
+    if (isbn === undefined) return false;
+
     const cleanedIsbn = isbn.replace(/[-\s]/g, '');
 
     if (cleanedIsbn.length === 10) return this.validateISBN10(cleanedIsbn);

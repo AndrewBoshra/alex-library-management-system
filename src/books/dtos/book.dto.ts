@@ -11,25 +11,25 @@ export class BookDto {
 
   @IsString()
   @IsNotEmpty()
-  title: string;
+  title?: string;
 
   @IsString()
   @IsNotEmpty()
   @Validate(IsbnValidator)
-  isbn: string;
+  isbn?: string;
 
   @IsNumber()
   @Min(0)
-  availableQuantity: number;
+  availableQuantity?: number;
 
   @IsString()
-  shelfLocation: string;
+  shelfLocation?: string;
 
   @IsNumber()
-  authorId: number;
+  authorId?: number;
 
   @ApiProperty({
     readOnly: true,
   })
-  author: AuthorDto;
+  author?: AuthorDto;
 }
