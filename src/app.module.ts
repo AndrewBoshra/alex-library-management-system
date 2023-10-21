@@ -5,6 +5,7 @@ import { BooksModule } from './books/books.module';
 import { CommonModule } from './common/common.module';
 import databaseConfig from './config/database.config';
 import { BorrowingModule } from '@borrowing/borrowing.module';
+import { AuthorsModule } from '@author/authors.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { BorrowingModule } from '@borrowing/borrowing.module';
       }),
     }),
     CommonModule,
+    AuthorsModule,
     BooksModule,
     BorrowingModule,
   ],

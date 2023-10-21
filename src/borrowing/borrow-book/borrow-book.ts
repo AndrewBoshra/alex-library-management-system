@@ -7,7 +7,7 @@ import { Body, Controller, Injectable, Param, Post } from '@nestjs/common';
 import { ApiTags, OmitType } from '@nestjs/swagger';
 import { Repository } from 'typeorm';
 import { BorrowerNotFoundException } from '@domain/exceptions/borrower-not-found';
-import { NoBookWithIdException } from '@domain/exceptions/no-bok-with-id';
+import { NoBookWithIdException } from '@domain/exceptions/no-book-with-id';
 
 @Injectable()
 export class BorrowBook {
