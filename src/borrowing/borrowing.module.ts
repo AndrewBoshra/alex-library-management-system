@@ -31,6 +31,10 @@ import {
   BookBorrowingReportCSVController,
   BookBorrowingReportController,
 } from './borrowing-report/borrowing-report';
+import {
+  ListOverDueBorrowingRecordsController,
+  ListBorrowingRecordsCsv,
+} from './borrowings-csv/list-borrowing-records';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Borrower, BorrowingRecord, Book])],
@@ -45,6 +49,7 @@ import {
     ReturnBookController,
     BookBorrowingReportController,
     BookBorrowingReportCSVController,
+    ListOverDueBorrowingRecordsController,
   ],
   providers: [
     AddBorrower,
@@ -55,6 +60,7 @@ import {
     ListBorrowingRecords,
     ReturnBook,
     BookBorrowingReport,
+    ListBorrowingRecordsCsv,
   ],
 })
 export class BorrowingModule {}

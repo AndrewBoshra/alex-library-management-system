@@ -1,11 +1,11 @@
 import { Book } from '@core/entities/book.entity';
 import { BorrowingReportCalculator } from '@core/entities/borrowing-report-calculator';
-import { Controller, Injectable, Get, StreamableFile } from '@nestjs/common';
+import { Controller, Injectable, Get, Res, Query } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { createObjectCsvWriter } from 'csv-writer';
-import { createReadStream } from 'fs';
+import { createObjectCsvStringifier } from 'csv-writer';
+import { DurationQuery } from './duration-query.dto';
 
 @Injectable()
 export class BookBorrowingReport {
@@ -14,12 +14,26 @@ export class BookBorrowingReport {
     private readonly booksRepository: Repository<Book>,
   ) {}
 
-  async execute() {
+  async execute(duration: DurationQuery) {
     const queryBuilder = await this.booksRepository
       .createQueryBuilder('book')
       .leftJoinAndSelect('book.borrowingRecords', 'borrowingRecords')
       .leftJoinAndSelect('book.author', 'author')
       .orderBy('book.title', 'ASC');
+
+    if (duration.startDateTime) {
+      queryBuilder.andWhere('borrowingRecords.borrowedAt >= :startDateTime', {
+        startDateTime: duration.startDateTime,
+      });
+    }
+
+    if (duration.endDateTime) {
+      queryBuilder.andWhere('borrowingRecords.borrowedAt <= :endDateTime', {
+        endDateTime: duration.endDateTime,
+      });
+    }
+
+    queryBuilder.orWhere('borrowingRecords.borrowedAt IS NULL');
 
     const books = await queryBuilder.getMany();
 
@@ -33,8 +47,8 @@ export class BookBorrowingReportController {
   constructor(private readonly borrowingReport: BookBorrowingReport) {}
 
   @Get()
-  async get() {
-    return await this.borrowingReport.execute();
+  async get(@Query() duration: DurationQuery) {
+    return await this.borrowingReport.execute(duration);
   }
 }
 
@@ -44,9 +58,8 @@ export class BookBorrowingReportCSVController {
   constructor(private readonly borrowingReport: BookBorrowingReport) {}
 
   @Get()
-  async get() {
-    const csvWriter = createObjectCsvWriter({
-      path: 'books.csv',
+  async get(@Query() duration: DurationQuery, @Res() res) {
+    const csvStringifier = createObjectCsvStringifier({
       header: [
         { id: 'id', title: 'ID' },
         { id: 'title', title: 'Title' },
@@ -65,14 +78,15 @@ export class BookBorrowingReportCSVController {
       ],
     });
 
-    const report = await this.borrowingReport.execute();
+    const report = await this.borrowingReport.execute(duration);
 
-    await csvWriter.writeRecords(report);
+    csvStringifier.stringifyRecords(report);
 
-    const file = createReadStream('books.csv');
-
-    return new StreamableFile(file, {
-      disposition: 'attachment; filename=books.csv',
-    });
+    res.setHeader('Content-Type', 'text/csv');
+    res.setHeader('Content-Disposition', 'attachment; filename=report.csv');
+    res.send(
+      csvStringifier.getHeaderString() +
+        csvStringifier.stringifyRecords(report),
+    );
   }
 }
