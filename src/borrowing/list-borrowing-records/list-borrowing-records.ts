@@ -63,6 +63,11 @@ export class ListBorrowingRecords {
       .applyIf(query.status === BorrowingRecordStatus.Returned, (qb) =>
         qb.andWhere('borrowingRecord.returnedAt IS NOT NULL'),
       )
+      .applyIf(query.status === BorrowingRecordStatus.ReturnedOverdue, (qb) =>
+        qb
+          .andWhere('borrowingRecord.returnedAt IS NOT NULL')
+          .andWhere('borrowingRecord.dueAt < borrowingRecord.returnedAt'),
+      )
       .paginateQuery()
       .toResponse(BorrowingRecordMapper.toDto);
   }

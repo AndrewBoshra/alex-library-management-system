@@ -26,6 +26,11 @@ import {
   ListBorrowingRecordsController,
 } from './list-borrowing-records/list-borrowing-records';
 import { ReturnBook, ReturnBookController } from './return-book/return-book';
+import {
+  BookBorrowingReport,
+  BookBorrowingReportCSVController,
+  BookBorrowingReportController,
+} from './borrowing-report/borrowing-report';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Borrower, BorrowingRecord, Book])],
@@ -38,6 +43,8 @@ import { ReturnBook, ReturnBookController } from './return-book/return-book';
     ListBorrowerBorrowingRecordsController,
     ListBorrowingRecordsController,
     ReturnBookController,
+    BookBorrowingReportController,
+    BookBorrowingReportCSVController,
   ],
   providers: [
     AddBorrower,
@@ -47,6 +54,7 @@ import { ReturnBook, ReturnBookController } from './return-book/return-book';
     BorrowBook,
     ListBorrowingRecords,
     ReturnBook,
+    BookBorrowingReport,
   ],
 })
 export class BorrowingModule {}

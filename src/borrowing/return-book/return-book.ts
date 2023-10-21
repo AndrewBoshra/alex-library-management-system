@@ -5,6 +5,7 @@ import { Controller, Injectable, Param, Post } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { Repository } from 'typeorm';
 import { BorrowingRecordNotFoundException } from '@core/exceptions/borrowing-record-not-found';
+import { BorrowingRecordMapper } from '@core/mappers/borrowing-record.mapper';
 
 @Injectable()
 export class ReturnBook {
@@ -33,7 +34,7 @@ export class ReturnBook {
     await this.borrowingRecordRepository.save(borrowing);
     await this.bookRepository.save(borrowing.book);
 
-    return borrowing;
+    return BorrowingRecordMapper.toDto(borrowing);
   }
 }
 
