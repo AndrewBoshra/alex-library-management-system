@@ -9,7 +9,9 @@ export class Book extends BaseModel {
   @Column()
   title: string;
 
-  @Column()
+  @Column({
+    unique: true,
+  })
   isbn: string;
 
   @Column()
