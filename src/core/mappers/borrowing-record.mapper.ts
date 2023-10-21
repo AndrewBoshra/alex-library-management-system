@@ -1,6 +1,6 @@
-import { BookMapper } from '@domain/mappers/book.mapper';
-import { BorrowingRecordDto } from '@domain/dtos/borrowing-record.dto';
-import { BorrowingRecord } from '@domain/entities/borrowing-record.entity';
+import { BookMapper } from '@core/mappers/book.mapper';
+import { BorrowingRecordDto } from '@core/dtos/borrowing-record.dto';
+import { BorrowingRecord } from '@core/entities/borrowing-record.entity';
 import { BorrowerMapper } from './borrower.mapper';
 
 export class BorrowingRecordMapper {

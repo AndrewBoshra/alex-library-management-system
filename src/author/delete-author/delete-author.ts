@@ -1,6 +1,6 @@
-import { Author } from '@domain/entities/author.entity';
-import { AuthorNotFoundException } from '@domain/exceptions/author-not-found';
-import { AuthorCantBeDeletedHasBook } from '@domain/exceptions/cant-delete-author';
+import { Author } from '@core/entities/author.entity';
+import { AuthorNotFoundException } from '@core/exceptions/author-not-found';
+import { AuthorCantBeDeletedHasBook } from '@core/exceptions/cant-delete-author';
 import { Param, Controller, Injectable, Delete } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { InjectRepository } from '@nestjs/typeorm';

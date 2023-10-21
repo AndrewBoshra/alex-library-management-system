@@ -1,14 +1,14 @@
-import { Borrower } from '@domain/entities/borrower.entity';
-import { BorrowingRecord } from '@domain/entities/borrowing-record.entity';
-import { BorrowerNotFoundException } from '@domain/exceptions/borrower-not-found';
-import { BorrowingRecordMapper } from '@domain/mappers/borrowing-record.mapper';
+import { Borrower } from '@core/entities/borrower.entity';
+import { BorrowingRecord } from '@core/entities/borrowing-record.entity';
+import { BorrowerNotFoundException } from '@core/exceptions/borrower-not-found';
+import { BorrowingRecordMapper } from '@core/mappers/borrowing-record.mapper';
 import { Controller, Injectable, Get, Param, Query } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { ListBorrowingRecordsQuery } from './list-borrowing-records-query.dto';
 import { QueryService } from '@common/services/query.service';
-import { BorrowingRecordStatus } from '@domain/entities/borrowing-record-status.enum';
+import { BorrowingRecordStatus } from '@core/entities/borrowing-record-status.enum';
 
 @Injectable()
 export class ListBorrowingRecords {

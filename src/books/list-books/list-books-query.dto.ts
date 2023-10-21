@@ -1,4 +1,4 @@
-import { IsbnValidator } from '@domain/validators/isbn.validator';
+import { IsbnValidator } from '@core/validators/isbn.validator';
 import { PageOptionsDto } from '@common/dto/page-options.dto';
 import { IsString, IsOptional, IsNumber, Validate } from 'class-validator';
 

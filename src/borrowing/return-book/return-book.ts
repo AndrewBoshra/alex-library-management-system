@@ -1,10 +1,10 @@
 import { InjectRepository } from '@nestjs/typeorm';
-import { Book } from '@domain/entities/book.entity';
-import { BorrowingRecord } from '@domain/entities/borrowing-record.entity';
+import { Book } from '@core/entities/book.entity';
+import { BorrowingRecord } from '@core/entities/borrowing-record.entity';
 import { Controller, Injectable, Param, Post } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { Repository } from 'typeorm';
-import { BorrowingRecordNotFoundException } from '@domain/exceptions/borrowing-record-not-found';
+import { BorrowingRecordNotFoundException } from '@core/exceptions/borrowing-record-not-found';
 
 @Injectable()
 export class ReturnBook {

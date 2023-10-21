@@ -1,7 +1,7 @@
-import { AuthorDto } from '@domain/dtos/author.dto';
-import { Author } from '@domain/entities/author.entity';
-import { AuthorMapper } from '@domain/mappers/author.mapper';
-import { AuthorNotFoundException } from '@domain/exceptions/author-not-found';
+import { AuthorDto } from '@core/dtos/author.dto';
+import { Author } from '@core/entities/author.entity';
+import { AuthorMapper } from '@core/mappers/author.mapper';
+import { AuthorNotFoundException } from '@core/exceptions/author-not-found';
 import { Body, Controller, Injectable, Put, Param } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { InjectRepository } from '@nestjs/typeorm';

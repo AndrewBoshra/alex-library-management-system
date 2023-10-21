@@ -1,7 +1,7 @@
 import { BaseModel } from '@/common/entity/base-model.entity';
 import { Column, Entity, ManyToOne, JoinColumn, OneToMany } from 'typeorm';
 import { Author } from './author.entity';
-import { NoAvailableBookException } from '@domain/exceptions/no-available-book';
+import { NoAvailableBookException } from '@core/exceptions/no-available-book';
 import { BorrowingRecord } from './borrowing-record.entity';
 
 @Entity()

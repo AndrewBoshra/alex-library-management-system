@@ -1,6 +1,6 @@
-import { AuthorDto } from '@domain/dtos/author.dto';
-import { Author } from '@domain/entities/author.entity';
-import { AuthorMapper } from '@domain/mappers/author.mapper';
+import { AuthorDto } from '@core/dtos/author.dto';
+import { Author } from '@core/entities/author.entity';
+import { AuthorMapper } from '@core/mappers/author.mapper';
 import { Body, Controller, Injectable, Post } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { InjectRepository } from '@nestjs/typeorm';

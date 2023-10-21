@@ -1,13 +1,13 @@
-import { BookDto } from '@domain/dtos/book.dto';
-import { Author } from '@domain/entities/author.entity';
-import { Book } from '@domain/entities/book.entity';
-import { BookMapper } from '@domain/mappers/book.mapper';
-import { NoAuthorWithIdException } from '@domain/exceptions/no-author-with-id';
+import { BookDto } from '@core/dtos/book.dto';
+import { Author } from '@core/entities/author.entity';
+import { Book } from '@core/entities/book.entity';
+import { BookMapper } from '@core/mappers/book.mapper';
+import { NoAuthorWithIdException } from '@core/exceptions/no-author-with-id';
 import { Body, Controller, Injectable, Post } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { BookWithISBNAlreadyAdded } from '@domain/exceptions/book-with-isbn-added';
+import { BookWithISBNAlreadyAdded } from '@core/exceptions/book-with-isbn-added';
 
 @Injectable()
 export class AddBook {

@@ -1,8 +1,8 @@
 import { BaseModel } from '@/common/entity/base-model.entity';
 import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 import { Borrower } from './borrower.entity';
-import { Book } from '@domain/entities/book.entity';
-import { AlreadyReturnedBookException } from '@domain/exceptions/already-returned-book';
+import { Book } from '@core/entities/book.entity';
+import { AlreadyReturnedBookException } from '@core/exceptions/already-returned-book';
 import { BorrowingRecordStatus } from './borrowing-record-status.enum';
 
 @Entity()

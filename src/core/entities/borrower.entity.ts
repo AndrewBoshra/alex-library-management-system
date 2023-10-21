@@ -2,7 +2,7 @@ import { BaseModel } from '@/common/entity/base-model.entity';
 import { Column, Entity, OneToMany } from 'typeorm';
 import { Book } from './book.entity';
 import { BorrowingRecord } from './borrowing-record.entity';
-import { AlreadyBorrowedBookException } from '@domain/exceptions/already-borrowed-book';
+import { AlreadyBorrowedBookException } from '@core/exceptions/already-borrowed-book';
 
 @Entity()
 export class Borrower extends BaseModel {

@@ -1,6 +1,6 @@
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Module } from '@nestjs/common';
-import { Author } from '../domain/entities/author.entity';
+import { Author } from '../core/entities/author.entity';
 import { AddAuthor, AddAuthorController } from './add-author/add-author';
 import {
   ListAuthors,

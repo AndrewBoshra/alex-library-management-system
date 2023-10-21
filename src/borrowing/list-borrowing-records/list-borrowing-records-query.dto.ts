@@ -1,6 +1,6 @@
 import { PageOptionsDto } from '@common/dto/page-options.dto';
 import { IsOptional, IsNumber, IsEnum } from 'class-validator';
-import { BorrowingRecordStatus } from '@domain/entities/borrowing-record-status.enum';
+import { BorrowingRecordStatus } from '@core/entities/borrowing-record-status.enum';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class ListBorrowingRecordsQuery extends PageOptionsDto {

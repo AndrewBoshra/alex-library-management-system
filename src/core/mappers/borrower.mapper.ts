@@ -1,5 +1,5 @@
-import { BorrowerDto } from '@domain/dtos/borrower.dto';
-import { Borrower } from '@domain/entities/borrower.entity';
+import { BorrowerDto } from '@core/dtos/borrower.dto';
+import { Borrower } from '@core/entities/borrower.entity';
 
 export class BorrowerMapper {
   static toEntity(bookDto: BorrowerDto): Borrower {

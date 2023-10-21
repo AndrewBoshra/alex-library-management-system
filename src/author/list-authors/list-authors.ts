@@ -1,5 +1,5 @@
-import { Author } from '@domain/entities/author.entity';
-import { AuthorMapper } from '@domain/mappers/author.mapper';
+import { Author } from '@core/entities/author.entity';
+import { AuthorMapper } from '@core/mappers/author.mapper';
 import { QueryService } from '@common/services/query.service';
 import { Controller, Injectable, Get, Query } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';

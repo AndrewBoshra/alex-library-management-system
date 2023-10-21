@@ -1,6 +1,6 @@
 import { IsNumber, IsDate } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
-import { BorrowingRecordStatus } from '@domain/entities/borrowing-record-status.enum';
+import { BorrowingRecordStatus } from '@core/entities/borrowing-record-status.enum';
 import { BookDto } from './book.dto';
 import { BorrowerDto } from './borrower.dto';
 

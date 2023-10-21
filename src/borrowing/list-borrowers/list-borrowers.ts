@@ -1,6 +1,6 @@
 import { QueryService } from '@common/services/query.service';
-import { Borrower } from '@domain/entities/borrower.entity';
-import { BorrowerMapper } from '@domain/mappers/borrower.mapper';
+import { Borrower } from '@core/entities/borrower.entity';
+import { BorrowerMapper } from '@core/mappers/borrower.mapper';
 import { Controller, Injectable, Get, Query } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { InjectRepository } from '@nestjs/typeorm';

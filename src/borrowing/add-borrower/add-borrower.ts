@@ -1,7 +1,7 @@
-import { BorrowerDto } from '@domain/dtos/borrower.dto';
-import { Borrower } from '@domain/entities/borrower.entity';
-import { BorrowerAlreadyExists } from '@domain/exceptions/borrower-already-exists';
-import { BorrowerMapper } from '@domain/mappers/borrower.mapper';
+import { BorrowerDto } from '@core/dtos/borrower.dto';
+import { Borrower } from '@core/entities/borrower.entity';
+import { BorrowerAlreadyExists } from '@core/exceptions/borrower-already-exists';
+import { BorrowerMapper } from '@core/mappers/borrower.mapper';
 import { Body, Controller, Injectable, Post } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { InjectRepository } from '@nestjs/typeorm';
