@@ -7,7 +7,8 @@ import { NoAuthorWithIdException } from '@domain/exceptions/no-author-with-id';
 import { Body, Controller, Injectable, Put, Param } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Not, Repository } from 'typeorm';
+import { BookWithISBNAlreadyAdded } from '@domain/exceptions/book-with-isbn-added';
 
 @Injectable()
 export class UpdateBook {
@@ -29,6 +30,14 @@ export class UpdateBook {
       throw new BookNotFoundException(id);
     }
 
+    const alreadyAdded = await this.booksRepository.exist({
+      where: { isbn: bookDto.isbn, id: Not(id) },
+    });
+
+    if (alreadyAdded) {
+      throw new BookWithISBNAlreadyAdded(bookDto.isbn);
+    }
+
     const author = await this.authorRepository.findOne({
       where: { id: bookDto.authorId },
     });
@@ -48,11 +57,11 @@ export class UpdateBook {
 @ApiTags('books')
 @Controller('books')
 export class UpdateBookController {
-  constructor(private readonly addBook: UpdateBook) {}
+  constructor(private readonly updateBook: UpdateBook) {}
 
   @Put(':id')
   async update(@Param('id') id: number, @Body() book: BookDto) {
-    return await this.addBook.execute({
+    return await this.updateBook.execute({
       id,
       bookDto: book,
     });

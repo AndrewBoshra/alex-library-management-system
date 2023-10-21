@@ -7,6 +7,7 @@ import { Body, Controller, Injectable, Post } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { BookWithISBNAlreadyAdded } from '@domain/exceptions/book-with-isbn-added';
 
 @Injectable()
 export class AddBook {
@@ -24,6 +25,14 @@ export class AddBook {
 
     if (!author) {
       throw new NoAuthorWithIdException(bookDto.authorId);
+    }
+
+    const alreadyAdded = await this.booksRepository.exist({
+      where: { isbn: bookDto.isbn },
+    });
+
+    if (alreadyAdded) {
+      throw new BookWithISBNAlreadyAdded(bookDto.isbn);
     }
 
     const book = this.booksRepository.create(BookMapper.toEntity(bookDto));

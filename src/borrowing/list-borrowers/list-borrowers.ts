@@ -5,7 +5,7 @@ import { Controller, Injectable, Get, Query } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { ListBorrowerQuery } from './list-borrower-query';
+import { ListBorrowerQuery } from './list-borrower-query.dto';
 
 @Injectable()
 export class ListBorrowers {

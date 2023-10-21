@@ -1,5 +1,6 @@
 import { BorrowerDto } from '@domain/dtos/borrower.dto';
 import { Borrower } from '@domain/entities/borrower.entity';
+import { BorrowerAlreadyExists } from '@domain/exceptions/borrower-already-exists';
 import { BorrowerMapper } from '@domain/mappers/borrower.mapper';
 import { Body, Controller, Injectable, Post } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
@@ -14,6 +15,13 @@ export class AddBorrower {
   ) {}
 
   async execute(borrowerDto: BorrowerDto): Promise<BorrowerDto> {
+    const alreadyExists = await this.borrowersRepository.exist({
+      where: { email: borrowerDto.email },
+    });
+
+    if (alreadyExists) {
+      throw new BorrowerAlreadyExists(borrowerDto.email);
+    }
     const borrower = this.borrowersRepository.create(
       BorrowerMapper.toEntity(borrowerDto),
     );
