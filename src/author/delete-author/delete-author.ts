@@ -33,7 +33,6 @@ export class DeleteAuthor {
       .leftJoinAndSelect('author.books', 'book')
       .where('author.id = :id', { id })
       .getCount();
-    console.log('hasBooks', hasBooks);
     if (hasBooks) {
       throw new AuthorCantBeDeletedHasBook(id);
     }
