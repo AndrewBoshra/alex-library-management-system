@@ -2,12 +2,8 @@ import { BaseModel } from '@/common/entity/base-model.entity';
 import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 import { Borrower } from './borrower.entity';
 import { Book } from '@domain/entities/book.entity';
-
-enum Status {
-  Overdue = 'overdue',
-  Returned = 'returned',
-  Borrowed = 'borrowed',
-}
+import { AlreadyReturnedBookException } from '@domain/exceptions/already-returned-book';
+import { BorrowingRecordStatus } from './borrowing-record-status.enum';
 
 @Entity()
 export class BorrowingRecord extends BaseModel {
@@ -40,6 +36,7 @@ export class BorrowingRecord extends BaseModel {
 
   @Column()
   bookId: number;
+
   @ManyToOne(() => Book, {
     onDelete: 'RESTRICT',
   })
@@ -58,17 +55,20 @@ export class BorrowingRecord extends BaseModel {
 
   get status() {
     if (this.isReturned) {
-      return Status.Returned;
+      return BorrowingRecordStatus.Returned;
     }
 
     if (this.isOverdue) {
-      return Status.Overdue;
+      return BorrowingRecordStatus.Overdue;
     }
 
-    return Status.Borrowed;
+    return BorrowingRecordStatus.Borrowed;
   }
 
   return() {
+    if (this.isReturned) {
+      throw new AlreadyReturnedBookException(this.id);
+    }
     this.returnedAt = new Date();
     this.book.return();
   }

@@ -24,6 +24,10 @@ export class BorrowingRecordMapper {
       bookId: borrowingRecord.bookId,
       borrowerId: borrowingRecord.borrowerId,
       dueAt: borrowingRecord.dueAt,
+      borrowedAt: borrowingRecord.borrowedAt,
+      isOverdue: borrowingRecord.isOverdue,
+      returnedAt: borrowingRecord.returnedAt,
+      status: borrowingRecord.status,
     };
   }
 }

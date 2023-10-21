@@ -3,12 +3,12 @@ import { Borrower } from '@domain/entities/borrower.entity';
 
 export class BorrowerMapper {
   static toEntity(bookDto: BorrowerDto): Borrower {
-    return {
+    return new Borrower({
       id: bookDto.id,
       name: bookDto.name,
       email: bookDto.email,
       registeredAt: bookDto.registeredAt,
-    };
+    });
   }
 
   static toDto(book: Borrower): BorrowerDto {

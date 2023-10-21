@@ -3,12 +3,11 @@ import { Book } from '@domain/entities/book.entity';
 import { BorrowingRecordDto } from '@domain/dtos/borrowing-record.dto';
 import { Borrower } from '@domain/entities/borrower.entity';
 import { BorrowingRecord } from '@domain/entities/borrowing-record.entity';
-import { BorrowingRecordMapper } from '@domain/mappers/borrowing-record.mapper';
-import { DomainException } from '@common/exceptions/domain-exception';
 import { Body, Controller, Injectable, Param, Post } from '@nestjs/common';
 import { ApiTags, OmitType } from '@nestjs/swagger';
 import { Repository } from 'typeorm';
 import { BorrowerNotFoundException } from '@domain/exceptions/borrower-not-found';
+import { NoBookWithIdException } from '@domain/exceptions/no-bok-with-id';
 
 @Injectable()
 export class BorrowBook {
@@ -26,6 +25,7 @@ export class BorrowBook {
       where: {
         id: borrowingRecordDto.borrowerId,
       },
+      relations: ['borrowingRecords'],
     });
 
     if (!borrower) {
@@ -42,11 +42,7 @@ export class BorrowBook {
       throw new NoBookWithIdException(borrowingRecordDto.bookId);
     }
 
-    book.checkOut();
-
-    const borrowingRecord = this.borrowingRecordRepository.create(
-      BorrowingRecordMapper.toEntity(borrowingRecordDto),
-    );
+    const borrowingRecord = borrower.borrowBook(book, borrowingRecordDto.dueAt);
 
     await this.borrowingRecordRepository.save(borrowingRecord);
     await this.bookRepository.save(book);
@@ -69,11 +65,5 @@ export class BorrowBookController {
       ...borrowingRecordDto,
       borrowerId,
     });
-  }
-}
-
-class NoBookWithIdException extends DomainException {
-  constructor(bookId: number) {
-    super(`No book with id ${bookId}`);
   }
 }
