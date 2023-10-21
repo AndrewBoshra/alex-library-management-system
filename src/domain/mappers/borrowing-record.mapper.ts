@@ -27,6 +27,10 @@ export class BorrowingRecordMapper {
       borrowedAt: borrowingRecord.borrowedAt,
       returnedAt: borrowingRecord.returnedAt,
       status: borrowingRecord.status,
+      book: borrowingRecord.book && BookMapper.toDto(borrowingRecord.book),
+      borrower:
+        borrowingRecord.borrower &&
+        BorrowerMapper.toDto(borrowingRecord.borrower),
     };
   }
 }

@@ -28,6 +28,8 @@ export class ListBorrowingRecords {
   }) {
     const queryBuilder = this.borrowingRecordRepository
       .createQueryBuilder('borrowingRecord')
+      .leftJoinAndSelect('borrowingRecord.book', 'book')
+      .leftJoinAndSelect('borrowingRecord.borrower', 'borrower')
       .orderBy('borrowingRecord.borrowedAt', 'DESC');
 
     if (borrowerId) {
