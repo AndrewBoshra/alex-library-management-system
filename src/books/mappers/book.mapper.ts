@@ -4,7 +4,7 @@ import { AuthorMapper } from './author.mapper';
 
 export class BookMapper {
   static toEntity(bookDto: BookDto): Book {
-    return {
+    return new Book({
       id: bookDto.id,
       title: bookDto.title,
       isbn: bookDto.isbn,
@@ -12,7 +12,7 @@ export class BookMapper {
       shelfLocation: bookDto.shelfLocation,
       authorId: bookDto.authorId,
       author: AuthorMapper.toEntity({ id: bookDto.authorId }),
-    };
+    });
   }
 
   static toDto(book: Book): BookDto {

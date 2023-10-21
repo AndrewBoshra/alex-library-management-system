@@ -42,11 +42,7 @@ export class BorrowBook {
       throw new NoBookWithIdException(borrowingRecordDto.bookId);
     }
 
-    if (book.availableQuantity === 0) {
-      throw new NoAvailableBookException(borrowingRecordDto.bookId);
-    }
-
-    book.availableQuantity -= 1;
+    book.checkOut();
 
     const borrowingRecord = this.borrowingRecordRepository.create(
       BorrowingRecordMapper.toEntity(borrowingRecordDto),
@@ -79,11 +75,5 @@ export class BorrowBookController {
 class NoBookWithIdException extends DomainException {
   constructor(bookId: number) {
     super(`No book with id ${bookId}`);
-  }
-}
-
-class NoAvailableBookException extends DomainException {
-  constructor(bookId: number) {
-    super(`No available book with id ${bookId}`);
   }
 }

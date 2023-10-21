@@ -68,6 +68,10 @@ export class BorrowingRecord extends BaseModel {
     return Status.Borrowed;
   }
 
+  return() {
+    this.returnedAt = new Date();
+    this.book.return();
+  }
   constructor(partial: Partial<BorrowingRecord>) {
     super();
     Object.assign(this, partial);

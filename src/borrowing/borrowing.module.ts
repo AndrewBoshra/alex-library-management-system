@@ -27,6 +27,10 @@ import {
   ListBorrowingRecords,
   ListBorrowingRecordsController,
 } from './features/list-borrowing-records/list-borrowing-records';
+import {
+  ReturnBook,
+  ReturnBookController,
+} from './features/return-book/return-book';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Borrower, BorrowingRecord, Book])],
@@ -37,6 +41,7 @@ import {
     DeleteBorrowerController,
     BorrowBookController,
     ListBorrowingRecordsController,
+    ReturnBookController,
   ],
   providers: [
     AddBorrower,
@@ -45,6 +50,7 @@ import {
     DeleteBorrower,
     BorrowBook,
     ListBorrowingRecords,
+    ReturnBook,
   ],
 })
 export class BorrowingModule {}

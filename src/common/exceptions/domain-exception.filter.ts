@@ -12,13 +12,13 @@ export class DomainExceptionFilter implements ExceptionFilter {
     if (exception instanceof NotFoundException) {
       return response.status(404).json({
         statusCode: 404,
-        message: [exception.message],
+        message: exception.message,
       });
     }
 
     response.status(400).json({
       statusCode: 400,
-      message: [exception.message],
+      message: exception.message,
     });
   }
 }
