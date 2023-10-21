@@ -4,33 +4,27 @@ import { Module } from '@nestjs/common';
 import {
   AddBorrower,
   AddBorrowerController,
-} from './features/add-borrower/add-borrower';
+} from './add-borrower/add-borrower';
 import {
   ListBorrowers,
   ListBorrowersController,
-} from './features/list-borrowers/list-borrowers';
+} from './list-borrowers/list-borrowers';
 import {
   UpdateBorrower,
   UpdateBorrowerController,
-} from './features/update-borrower/update-borrower';
+} from './update-borrower/update-borrower';
 import {
   DeleteBorrower,
   DeleteBorrowerController,
-} from './features/delete-borrower/delete-borrower';
-import {
-  BorrowBook,
-  BorrowBookController,
-} from './features/borrow-book/borrow-book';
+} from './delete-borrower/delete-borrower';
+import { BorrowBook, BorrowBookController } from './borrow-book/borrow-book';
 import { Book } from '@domain/entities/book.entity';
 import { BorrowingRecord } from '../domain/entities/borrowing-record.entity';
 import {
   ListBorrowingRecords,
   ListBorrowingRecordsController,
-} from './features/list-borrowing-records/list-borrowing-records';
-import {
-  ReturnBook,
-  ReturnBookController,
-} from './features/return-book/return-book';
+} from './list-borrowing-records/list-borrowing-records';
+import { ReturnBook, ReturnBookController } from './return-book/return-book';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Borrower, BorrowingRecord, Book])],
