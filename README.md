@@ -72,3 +72,7 @@ You can interact with and test the API endpoints using Swagger's user-friendly i
 The project also includes some optional bonus features:
 
 - Analytical reports
+
+## Schema Design
+
+![Schema Design](./schema.png)
