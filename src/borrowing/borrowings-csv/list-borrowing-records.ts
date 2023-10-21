@@ -20,7 +20,6 @@ export class ListBorrowingRecordsCsv {
       .leftJoinAndSelect('borrowingRecord.borrower', 'borrower')
       .orderBy('borrowingRecord.borrowedAt', 'DESC');
 
-    console.log(await queryBuilder.getMany());
     if (onlyOverdue)
       queryBuilder = queryBuilder
         .where('borrowingRecord.returnedAt IS NULL')
