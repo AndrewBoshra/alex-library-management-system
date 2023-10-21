@@ -1,5 +1,6 @@
 import { Author } from '@domain/entities/author.entity';
 import { AuthorNotFoundException } from '@domain/exceptions/author-not-found';
+import { AuthorCantBeDeletedHasBook } from '@domain/exceptions/cant-delete-author';
 import { Param, Controller, Injectable, Delete } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -25,6 +26,16 @@ export class DeleteAuthor {
 
     if (!originalAuthor) {
       throw new AuthorNotFoundException(id);
+    }
+
+    const hasBooks = await this.authorsRepository
+      .createQueryBuilder('author')
+      .leftJoinAndSelect('author.books', 'book')
+      .where('author.id = :id', { id })
+      .getCount();
+    console.log('hasBooks', hasBooks);
+    if (hasBooks) {
+      throw new AuthorCantBeDeletedHasBook(id);
     }
 
     await this.authorsRepository.delete(id);

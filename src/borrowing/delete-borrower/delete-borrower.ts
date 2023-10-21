@@ -1,5 +1,6 @@
 import { Borrower } from '@domain/entities/borrower.entity';
 import { BorrowerNotFoundException } from '@domain/exceptions/borrower-not-found';
+import { BorrowerCantBeDeletedHasBook } from '@domain/exceptions/cant-delete-borrower';
 import { Param, Controller, Injectable, Delete } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -21,10 +22,15 @@ export class DeleteBorrower {
 
     const originalBorrower = await this.borrowersRepository.findOne({
       where: { id },
+      relations: ['borrowingRecords'],
     });
 
     if (!originalBorrower) {
       throw new BorrowerNotFoundException(id);
+    }
+
+    if (originalBorrower.hasBooks()) {
+      throw new BorrowerCantBeDeletedHasBook(id);
     }
 
     await this.borrowersRepository.delete(id);

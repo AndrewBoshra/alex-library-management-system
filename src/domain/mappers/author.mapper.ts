@@ -3,10 +3,10 @@ import { Author } from '@domain/entities/author.entity';
 
 export class AuthorMapper {
   static toEntity(authorDto: AuthorDto): Author {
-    return {
+    return new Author({
       id: authorDto.id,
       name: authorDto.name,
-    };
+    });
   }
 
   static toDto(author: Author): AuthorDto {

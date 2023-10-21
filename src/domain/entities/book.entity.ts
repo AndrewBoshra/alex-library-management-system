@@ -1,7 +1,8 @@
 import { BaseModel } from '@/common/entity/base-model.entity';
-import { Column, Entity, ManyToOne, JoinColumn } from 'typeorm';
+import { Column, Entity, ManyToOne, JoinColumn, OneToMany } from 'typeorm';
 import { Author } from './author.entity';
 import { NoAvailableBookException } from '@domain/exceptions/no-available-book';
+import { BorrowingRecord } from './borrowing-record.entity';
 
 @Entity()
 export class Book extends BaseModel {
@@ -28,6 +29,9 @@ export class Book extends BaseModel {
   })
   author?: Author;
 
+  @OneToMany(() => BorrowingRecord, (borrowingRecord) => borrowingRecord.book)
+  borrowingRecords?: BorrowingRecord[];
+
   checkOut() {
     if (this.availableQuantity === 0) {
       throw new NoAvailableBookException(this.id);
@@ -38,6 +42,10 @@ export class Book extends BaseModel {
 
   return() {
     this.availableQuantity += 1;
+  }
+
+  isBorrowedBefore() {
+    return Boolean(this.borrowingRecords.length);
   }
 
   constructor(partial: Partial<Book>) {

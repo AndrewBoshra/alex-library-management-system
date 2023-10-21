@@ -47,4 +47,10 @@ export class Borrower extends BaseModel {
       dueAt,
     });
   }
+
+  hasBooks() {
+    return (
+      this.borrowingRecords.filter((record) => !record.isReturned).length > 0
+    );
+  }
 }

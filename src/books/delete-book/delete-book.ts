@@ -1,5 +1,6 @@
 import { Book } from '@domain/entities/book.entity';
 import { BookNotFoundException } from '@domain/exceptions/book-not-found';
+import { BookCantBeDeletedIsBorrowed } from '@domain/exceptions/cant-delete-book-is-borrowed';
 import { Param, Controller, Injectable, Delete } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -21,12 +22,16 @@ export class DeleteBook {
 
     const originalBook = await this.booksRepository.findOne({
       where: { id },
+      relations: ['borrowingRecords'],
     });
 
     if (!originalBook) {
       throw new BookNotFoundException(id);
     }
 
+    if (originalBook.isBorrowedBefore()) {
+      throw new BookCantBeDeletedIsBorrowed(id);
+    }
     await this.booksRepository.delete(id);
   }
 }

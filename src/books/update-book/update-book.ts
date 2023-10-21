@@ -30,11 +30,11 @@ export class UpdateBook {
       throw new BookNotFoundException(id);
     }
 
-    const alreadyAdded = await this.booksRepository.exist({
+    const bookWithISBNExists = await this.booksRepository.exist({
       where: { isbn: bookDto.isbn, id: Not(id) },
     });
 
-    if (alreadyAdded) {
+    if (bookWithISBNExists) {
       throw new BookWithISBNAlreadyAdded(bookDto.isbn);
     }
 
@@ -48,6 +48,7 @@ export class UpdateBook {
 
     bookDto.id = id;
     const updatedBook = BookMapper.toEntity(bookDto);
+
     const savedBook = await this.booksRepository.save(updatedBook);
     updatedBook.author = author;
     return BookMapper.toDto(savedBook);
