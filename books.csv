@@ -1,5 +1,0 @@
-ID,Title,ISBN,Available Quantity,Shelf Location,Author ID,Author Name,Borrowed Count,Returned In Time Count,Not Returned Yet Count,Returned Over Due Count,Not Returned Over Due Count,Avg Overdue Duration,Avg Borrowing Duration
-10,Book 1,2321323213,2,string,1,martin frawler,1,0,0,1,0,349000,392000
-11,Book 1,2321323221,2,string,1,martin frawler,0,0,0,0,0,NaN,NaN
-7,Clean Arch,978-0553293357,7,9888-454-484,1,martin frawler,0,0,0,0,0,NaN,NaN
-5,DDD,9781234567897,9,9781234567897,1,martin frawler,0,0,0,0,0,NaN,NaN
