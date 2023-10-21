@@ -1,10 +1,11 @@
-import { BookDto } from '@/books/dtos/book.dto';
 import { Book } from '@/books/entities/book.entity';
 import { BookMapper } from '@/books/mappers/book.mapper';
-import { Controller, Injectable, Get } from '@nestjs/common';
+import { QueryService } from '@common/services/query.service';
+import { Controller, Injectable, Get, Query } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { ListBooksQuery } from './list-books-query';
 
 @Injectable()
 export class ListBooks {
@@ -13,9 +14,27 @@ export class ListBooks {
     private readonly booksRepository: Repository<Book>,
   ) {}
 
-  async execute(): Promise<BookDto[]> {
-    const bks = await this.booksRepository.find();
-    return bks.map(BookMapper.toDto);
+  async execute(query: ListBooksQuery) {
+    const queryBuilder = await this.booksRepository.createQueryBuilder('book');
+
+    const response = await new QueryService<Book>(queryBuilder, query)
+      .applyIf(!!query.title, (qb) =>
+        qb.andWhere('LOWER(book.title) LIKE :title', {
+          title: `%${query.title.toLowerCase()}%`,
+        }),
+      )
+      .applyIf(!!query.authorId, (qb) =>
+        qb.andWhere('book.authorId = :authorId', { authorId: query.authorId }),
+      )
+      .applyIf(!!query.isbn, (qb) =>
+        qb.andWhere('LOWER(book.isbn) = :isbn', {
+          isbn: query.isbn.toLocaleLowerCase(),
+        }),
+      )
+      .paginateQuery()
+      .toResponse(BookMapper.toDto);
+
+    return response;
   }
 }
 
@@ -25,7 +44,7 @@ export class ListBooksController {
   constructor(private readonly listBooks: ListBooks) {}
 
   @Get()
-  async create() {
-    return await this.listBooks.execute();
+  async get(@Query() query: ListBooksQuery) {
+    return await this.listBooks.execute(query);
   }
 }
