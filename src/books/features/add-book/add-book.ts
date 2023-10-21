@@ -1,8 +1,8 @@
-import { BookDto } from '@/books/dtos/book.dto';
-import { Author } from '@/books/entities/author.entity';
-import { Book } from '@/books/entities/book.entity';
-import { BookMapper } from '@/books/mappers/book.mapper';
-import { NoAuthorWithIdException } from '@books/exceptions/no-author-with-id';
+import { BookDto } from '@domain/dtos/book.dto';
+import { Author } from '@domain/entities/author.entity';
+import { Book } from '@domain/entities/book.entity';
+import { BookMapper } from '@domain/mappers/book.mapper';
+import { NoAuthorWithIdException } from '@domain/exceptions/no-author-with-id';
 import { Body, Controller, Injectable, Post } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { InjectRepository } from '@nestjs/typeorm';

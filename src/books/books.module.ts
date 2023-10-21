@@ -1,7 +1,7 @@
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Module } from '@nestjs/common';
-import { Author } from './entities/author.entity';
-import { Book } from './entities/book.entity';
+import { Author } from '../domain/entities/author.entity';
+import { Book } from '../domain/entities/book.entity';
 import { AddBook, AddBookController } from './features/add-book/add-book';
 import {
   ListBooks,

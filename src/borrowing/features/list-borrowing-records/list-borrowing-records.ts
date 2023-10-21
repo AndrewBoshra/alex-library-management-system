@@ -1,8 +1,8 @@
-import { BorrowingRecordDto } from '@borrowing/dtos/borrowing-record.dto';
-import { Borrower } from '@borrowing/entities/borrower.entity';
-import { BorrowingRecord } from '@borrowing/entities/borrowing-record.entity';
-import { BorrowerNotFoundException } from '@borrowing/exceptions/borrower-not-found';
-import { BorrowingRecordMapper } from '@borrowing/mappers/borrowing-record.mapper';
+import { BorrowingRecordDto } from '@domain/dtos/borrowing-record.dto';
+import { Borrower } from '@domain/entities/borrower.entity';
+import { BorrowingRecord } from '@domain/entities/borrowing-record.entity';
+import { BorrowerNotFoundException } from '@domain/exceptions/borrower-not-found';
+import { BorrowingRecordMapper } from '@domain/mappers/borrowing-record.mapper';
 import { Controller, Injectable, Get, Param } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { InjectRepository } from '@nestjs/typeorm';

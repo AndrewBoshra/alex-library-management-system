@@ -1,5 +1,5 @@
-import { Book } from '@/books/entities/book.entity';
-import { BookNotFoundException } from '@books/exceptions/book-not-found';
+import { Book } from '@domain/entities/book.entity';
+import { BookNotFoundException } from '@domain/exceptions/book-not-found';
 import { Param, Controller, Injectable, Delete } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { InjectRepository } from '@nestjs/typeorm';

@@ -1,5 +1,5 @@
-import { AuthorDto } from '@books/dtos/author.dto';
-import { Author } from '@books/entities/author.entity';
+import { AuthorDto } from '@domain/dtos/author.dto';
+import { Author } from '@domain/entities/author.entity';
 
 export class AuthorMapper {
   static toEntity(authorDto: AuthorDto): Author {

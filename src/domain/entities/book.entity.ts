@@ -1,7 +1,7 @@
 import { BaseModel } from '@/common/entity/base-model.entity';
 import { Column, Entity, ManyToOne, JoinColumn } from 'typeorm';
 import { Author } from './author.entity';
-import { NoAvailableBookException } from '@books/exceptions/no-available-book';
+import { NoAvailableBookException } from '@domain/exceptions/no-available-book';
 
 @Entity()
 export class Book extends BaseModel {

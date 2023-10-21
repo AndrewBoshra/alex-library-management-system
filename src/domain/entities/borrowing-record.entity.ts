@@ -1,7 +1,7 @@
 import { BaseModel } from '@/common/entity/base-model.entity';
 import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 import { Borrower } from './borrower.entity';
-import { Book } from '@books/entities/book.entity';
+import { Book } from '@domain/entities/book.entity';
 
 enum Status {
   Overdue = 'overdue',

@@ -1,14 +1,14 @@
 import { InjectRepository } from '@nestjs/typeorm';
-import { Book } from '@books/entities/book.entity';
-import { BorrowingRecordDto } from '@borrowing/dtos/borrowing-record.dto';
-import { Borrower } from '@borrowing/entities/borrower.entity';
-import { BorrowingRecord } from '@borrowing/entities/borrowing-record.entity';
-import { BorrowingRecordMapper } from '@borrowing/mappers/borrowing-record.mapper';
+import { Book } from '@domain/entities/book.entity';
+import { BorrowingRecordDto } from '@domain/dtos/borrowing-record.dto';
+import { Borrower } from '@domain/entities/borrower.entity';
+import { BorrowingRecord } from '@domain/entities/borrowing-record.entity';
+import { BorrowingRecordMapper } from '@domain/mappers/borrowing-record.mapper';
 import { DomainException } from '@common/exceptions/domain-exception';
 import { Body, Controller, Injectable, Param, Post } from '@nestjs/common';
 import { ApiTags, OmitType } from '@nestjs/swagger';
 import { Repository } from 'typeorm';
-import { BorrowerNotFoundException } from '@borrowing/exceptions/borrower-not-found';
+import { BorrowerNotFoundException } from '@domain/exceptions/borrower-not-found';
 
 @Injectable()
 export class BorrowBook {

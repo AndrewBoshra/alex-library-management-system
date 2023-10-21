@@ -1,5 +1,5 @@
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Borrower } from './entities/borrower.entity';
+import { Borrower } from '../domain/entities/borrower.entity';
 import { Module } from '@nestjs/common';
 import {
   AddBorrower,
@@ -21,8 +21,8 @@ import {
   BorrowBook,
   BorrowBookController,
 } from './features/borrow-book/borrow-book';
-import { Book } from '@books/entities/book.entity';
-import { BorrowingRecord } from './entities/borrowing-record.entity';
+import { Book } from '@domain/entities/book.entity';
+import { BorrowingRecord } from '../domain/entities/borrowing-record.entity';
 import {
   ListBorrowingRecords,
   ListBorrowingRecordsController,

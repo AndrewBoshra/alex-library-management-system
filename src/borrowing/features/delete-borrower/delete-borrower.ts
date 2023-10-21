@@ -1,5 +1,5 @@
-import { Borrower } from '@borrowing/entities/borrower.entity';
-import { BorrowerNotFoundException } from '@borrowing/exceptions/borrower-not-found';
+import { Borrower } from '@domain/entities/borrower.entity';
+import { BorrowerNotFoundException } from '@domain/exceptions/borrower-not-found';
 import { Param, Controller, Injectable, Delete } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { InjectRepository } from '@nestjs/typeorm';

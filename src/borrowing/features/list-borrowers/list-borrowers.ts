@@ -1,6 +1,6 @@
-import { BorrowerDto } from '@borrowing/dtos/borrower.dto';
-import { Borrower } from '@borrowing/entities/borrower.entity';
-import { BorrowerMapper } from '@borrowing/mappers/borrower.mapper';
+import { BorrowerDto } from '@domain/dtos/borrower.dto';
+import { Borrower } from '@domain/entities/borrower.entity';
+import { BorrowerMapper } from '@domain/mappers/borrower.mapper';
 import { Controller, Injectable, Get } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { InjectRepository } from '@nestjs/typeorm';

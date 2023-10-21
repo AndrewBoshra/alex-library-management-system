@@ -1,5 +1,5 @@
-import { Book } from '@/books/entities/book.entity';
-import { BookMapper } from '@/books/mappers/book.mapper';
+import { Book } from '@domain/entities/book.entity';
+import { BookMapper } from '@domain/mappers/book.mapper';
 import { QueryService } from '@common/services/query.service';
 import { Controller, Injectable, Get, Query } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
