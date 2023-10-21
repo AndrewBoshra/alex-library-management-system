@@ -47,7 +47,7 @@ export class ReturnBookController {
   constructor(private readonly returnBookCommandHandler: ReturnBook) {}
 
   @Post()
-  borrowBook(@Param('recordId') recordId: number) {
+  returnBook(@Param('recordId') recordId: number) {
     return this.returnBookCommandHandler.execute({ recordId });
   }
 }

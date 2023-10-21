@@ -51,7 +51,7 @@ export class UpdateBookController {
   constructor(private readonly addBook: UpdateBook) {}
 
   @Put(':id')
-  async create(@Param('id') id: number, @Body() book: BookDto) {
+  async update(@Param('id') id: number, @Body() book: BookDto) {
     return await this.addBook.execute({
       id,
       bookDto: book,

@@ -35,11 +35,11 @@ export class UpdateBorrower {
 @ApiTags('borrowers')
 @Controller('borrowers')
 export class UpdateBorrowerController {
-  constructor(private readonly addBorrower: UpdateBorrower) {}
+  constructor(private readonly updateBorrower: UpdateBorrower) {}
 
   @Put(':id')
   async create(@Param('id') id: number, @Body() borrower: BorrowerDto) {
-    return await this.addBorrower.execute({
+    return await this.updateBorrower.execute({
       id,
       borrowerDto: borrower,
     });

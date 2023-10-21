@@ -37,7 +37,7 @@ export class DeleteBookController {
   constructor(private readonly addBook: DeleteBook) {}
 
   @Delete(':id')
-  async create(@Param('id') id: number) {
+  async delete(@Param('id') id: number) {
     return await this.addBook.execute({ id });
   }
 }

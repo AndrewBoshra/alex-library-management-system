@@ -15,7 +15,9 @@ export class ListBooks {
   ) {}
 
   async execute(query: ListBooksQuery) {
-    const queryBuilder = await this.booksRepository.createQueryBuilder('book');
+    const queryBuilder = await this.booksRepository
+      .createQueryBuilder('book')
+      .innerJoinAndSelect('book.author', 'author');
 
     const response = await new QueryService<Book>(queryBuilder, query)
       .applyIf(!!query.title, (qb) =>

@@ -24,7 +24,6 @@ export class ListAuthors {
           name: `%${query.name.toLowerCase()}%`,
         }),
       )
-
       .paginateQuery()
       .toResponse(AuthorMapper.toDto);
 

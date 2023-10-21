@@ -37,7 +37,7 @@ export class DeleteBorrowerController {
   constructor(private readonly addBorrower: DeleteBorrower) {}
 
   @Delete(':id')
-  async create(@Param('id') id: number) {
+  async delete(@Param('id') id: number) {
     return await this.addBorrower.execute({ id });
   }
 }

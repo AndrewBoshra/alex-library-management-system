@@ -25,7 +25,7 @@ export class ListBorrowersController {
   constructor(private readonly listBorrowers: ListBorrowers) {}
 
   @Get()
-  async create() {
+  async get() {
     return await this.listBorrowers.execute();
   }
 }
