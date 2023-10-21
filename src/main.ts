@@ -3,15 +3,16 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { INestApplication, ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { DomainExceptionFilter } from '@common/exceptions/domain-exception.filter';
 
 function initSwagger(app: INestApplication) {
   const options = new DocumentBuilder()
-    .setTitle('Recruitment API')
+    .setTitle('Alex Library API')
     .setVersion('1.0')
-    .addTag('Recruitment')
+    .addTag('Library')
     .build();
   const document = SwaggerModule.createDocument(app, options);
-  SwaggerModule.setup('api', app, document);
+  SwaggerModule.setup('swagger', app, document);
 }
 
 function initValidation(app: INestApplication) {
@@ -34,6 +35,8 @@ async function bootstrap() {
 
   initSwagger(app);
   initValidation(app);
+
+  app.useGlobalFilters(new DomainExceptionFilter());
 
   const port = configService.get('PORT') || 3000;
   await app.listen(port, () => console.log(`Server running on port ${port}`));
