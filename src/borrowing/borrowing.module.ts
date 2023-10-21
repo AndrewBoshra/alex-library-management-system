@@ -21,6 +21,7 @@ import { BorrowBook, BorrowBookController } from './borrow-book/borrow-book';
 import { Book } from '@domain/entities/book.entity';
 import { BorrowingRecord } from '../domain/entities/borrowing-record.entity';
 import {
+  ListBorrowerBorrowingRecordsController,
   ListBorrowingRecords,
   ListBorrowingRecordsController,
 } from './list-borrowing-records/list-borrowing-records';
@@ -34,6 +35,7 @@ import { ReturnBook, ReturnBookController } from './return-book/return-book';
     UpdateBorrowerController,
     DeleteBorrowerController,
     BorrowBookController,
+    ListBorrowerBorrowingRecordsController,
     ListBorrowingRecordsController,
     ReturnBookController,
   ],

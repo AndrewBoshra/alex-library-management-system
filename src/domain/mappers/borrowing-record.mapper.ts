@@ -25,7 +25,6 @@ export class BorrowingRecordMapper {
       borrowerId: borrowingRecord.borrowerId,
       dueAt: borrowingRecord.dueAt,
       borrowedAt: borrowingRecord.borrowedAt,
-      isOverdue: borrowingRecord.isOverdue,
       returnedAt: borrowingRecord.returnedAt,
       status: borrowingRecord.status,
     };

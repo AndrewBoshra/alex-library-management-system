@@ -31,9 +31,4 @@ export class BorrowingRecordDto {
     readOnly: true,
   })
   status?: BorrowingRecordStatus;
-
-  @ApiProperty({
-    readOnly: true,
-  })
-  isOverdue?: boolean;
 }

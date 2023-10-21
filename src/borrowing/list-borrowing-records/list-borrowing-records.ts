@@ -1,12 +1,14 @@
-import { BorrowingRecordDto } from '@domain/dtos/borrowing-record.dto';
 import { Borrower } from '@domain/entities/borrower.entity';
 import { BorrowingRecord } from '@domain/entities/borrowing-record.entity';
 import { BorrowerNotFoundException } from '@domain/exceptions/borrower-not-found';
 import { BorrowingRecordMapper } from '@domain/mappers/borrowing-record.mapper';
-import { Controller, Injectable, Get, Param } from '@nestjs/common';
+import { Controller, Injectable, Get, Param, Query } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { ListBorrowingRecordsQuery } from './list-borrowing-records-query.dto';
+import { QueryService } from '@common/services/query.service';
+import { BorrowingRecordStatus } from '@domain/entities/borrowing-record-status.enum';
 
 @Injectable()
 export class ListBorrowingRecords {
@@ -19,37 +21,78 @@ export class ListBorrowingRecords {
 
   async execute({
     borrowerId,
+    query,
   }: {
     borrowerId: number;
-  }): Promise<BorrowingRecordDto[]> {
-    const borrower = await this.borrowerRepository.findOne({
-      where: {
-        id: borrowerId,
-      },
-    });
+    query: ListBorrowingRecordsQuery;
+  }) {
+    const queryBuilder = this.borrowingRecordRepository
+      .createQueryBuilder('borrowingRecord')
+      .orderBy('borrowingRecord.borrowedAt', 'DESC');
 
-    if (!borrower) {
-      throw new BorrowerNotFoundException(borrowerId);
+    if (borrowerId) {
+      const borrower = await this.borrowerRepository.findOne({
+        where: { id: borrowerId },
+      });
+      if (!borrower) {
+        throw new BorrowerNotFoundException(borrowerId);
+      }
+      queryBuilder.where('borrowingRecord.borrowerId = :borrowerId', {
+        borrowerId,
+      });
     }
 
-    const bks = await this.borrowingRecordRepository.find({
-      where: {
-        borrowerId,
-      },
-    });
-    return bks.map(BorrowingRecordMapper.toDto);
+    return new QueryService<BorrowingRecord>(queryBuilder, query)
+      .applyIf(!!query.bookId, (qb) =>
+        qb.andWhere('borrowingRecord.bookId = :bookId', {
+          bookId: query.bookId,
+        }),
+      )
+      .applyIf(query.status === BorrowingRecordStatus.Borrowed, (qb) =>
+        qb
+          .andWhere('borrowingRecord.returnedAt IS NULL')
+          .andWhere('borrowingRecord.dueAt > :now', { now: new Date() }),
+      )
+      .applyIf(query.status === BorrowingRecordStatus.Overdue, (qb) =>
+        qb
+          .andWhere('borrowingRecord.returnedAt IS NULL')
+          .andWhere('borrowingRecord.dueAt < :now', { now: new Date() }),
+      )
+      .applyIf(query.status === BorrowingRecordStatus.Returned, (qb) =>
+        qb.andWhere('borrowingRecord.returnedAt IS NOT NULL'),
+      )
+      .paginateQuery()
+      .toResponse(BorrowingRecordMapper.toDto);
   }
 }
 
 @ApiTags('borrowing')
 @Controller('borrowers')
-export class ListBorrowingRecordsController {
+export class ListBorrowerBorrowingRecordsController {
   constructor(private readonly listBorrowingRecords: ListBorrowingRecords) {}
 
   @Get(':borrowerId/borrowing-records')
-  async get(@Param('borrowerId') borrowerId: number) {
+  async get(
+    @Param('borrowerId') borrowerId: number,
+    @Query() query: ListBorrowingRecordsQuery,
+  ) {
     return await this.listBorrowingRecords.execute({
       borrowerId,
+      query,
+    });
+  }
+}
+
+@ApiTags('borrowing')
+@Controller('borrowing-records')
+export class ListBorrowingRecordsController {
+  constructor(private readonly listBorrowingRecords: ListBorrowingRecords) {}
+
+  @Get()
+  async get(@Query() query: ListBorrowingRecordsQuery) {
+    return await this.listBorrowingRecords.execute({
+      borrowerId: null,
+      query,
     });
   }
 }
