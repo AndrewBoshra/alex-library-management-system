@@ -1,78 +1,35 @@
-# **Alex Library Management System**
+# Library Management System
 
-## **Project Overview**
+A REST API for managing books, borrowers and the borrowing process — registration, checkout, returns, and overdue tracking.
 
-This is a simple Library Management System implemented in Node.js using the NestJS framework. The system allows you to manage books, borrowers, and the borrowing process. It includes features like adding, updating, and deleting books, registering borrowers, and tracking due dates and overdue books.
+## Stack
 
-## **Requirements**
+NestJS · TypeORM · MySQL · class-validator · Swagger
 
-Before running the project, ensure you have the following prerequisites:
+## Features
 
-- Node.js
-- npm (Node Package Manager)
-- MySQL database
-- A **`.env`** file with the following configuration (you can use **`.env.example`** as a template):
+- Book catalogue with create, update, delete and search
+- Borrower registration and management
+- Borrowing and returning, with due dates and overdue detection
+- CSV export of borrowing reports
+- Request validation via DTOs, documented with Swagger
 
-```makefile
-
-DB_HOST=localhost
-DB_PORT=3306
-DB_USERNAME=root
-DB_PASSWORD=Password
-DB_NAME=library
-
-PORT=3000
-ENV=development
-
-```
-
-## **Getting Started**
-
-1. Clone the repository:
+## Running it
 
 ```bash
-
-git clone https://github.com/andrew-boshra/alex-library-management-system.git
-
+cp .env.example .env     # then fill in your database credentials
+yarn install
+yarn start:dev
 ```
 
-1. Install project dependencies:
+Swagger UI is served at `/api`. The database schema is diagrammed in `schema.png`.
+
+## Tests
 
 ```bash
-
-cd alex-library-management-system
-npm install
-
+yarn test:e2e
 ```
 
-1. Create the database in your MySQL server with the name specified in your **`.env`** file (e.g., **`library`**).
-2. Start the NestJS application:
-
-```bash
-
-npm run start:dev
-```
-
-The application should now be running on port 3000 (or the port specified in your **`.env`** file).
-
-## **API Documentation**
-
-The project is equipped with Swagger documentation. To access it, go to:
-
-```bash
-
-http://localhost:3000/swagger
-
-```
-
-You can interact with and test the API endpoints using Swagger's user-friendly interface.
-
-## **Bonus Features**
-
-The project also includes some optional bonus features:
-
-- Analytical reports
-
-## Schema Design
+## Screenshots
 
 ![Schema Design](./schema.png)
